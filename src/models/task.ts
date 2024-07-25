@@ -27,6 +27,7 @@ export interface CreateCategoryPayload {
 export interface Task {
   readonly id: number;
   name: string;
+  description: string;
   categories: Category[];
   tags: Tag[];
   done: boolean;
