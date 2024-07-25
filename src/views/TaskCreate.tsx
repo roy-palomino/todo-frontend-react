@@ -91,6 +91,7 @@ const TaskCreate: FC = () => {
       const result = await createTag(createOption(inputValue));
       updateFormValues(optionify(result), "tags");
       setTags([...tags, result]);
+      toast.success("Tag created successfully!!!");
     } catch (e) {
       toast.error(`Error creating tag`);
     } finally {
@@ -104,6 +105,7 @@ const TaskCreate: FC = () => {
       const result = await createCategory(createOption(inputValue));
       updateFormValues(optionify(result), "categories");
       setCategories([...categories, result]);
+      toast.success("Category created successfully!!!");
     } catch (e) {
       toast.error(`Error creating category`);
     } finally {
