@@ -1,14 +1,18 @@
 import { FC, useEffect, useState } from "react";
 
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
-import Select from "react-select";
+import CreatableSelect from "react-select/creatable";
 import DatePicker from "react-datepicker";
 import { useLocation } from "wouter";
+import { toast } from "sonner";
 import "react-datepicker/dist/react-datepicker.css";
 
 import { Category, Tag, CreateTaskPayload } from "../models";
-import { listTags } from "../services/tags.service.ts";
-import { listCategories } from "../services/categories.service.ts";
+import { listTags, createTag } from "../services/tags.service.ts";
+import {
+  listCategories,
+  createCategory,
+} from "../services/categories.service.ts";
 import { createTask } from "../services/tasks.service.ts";
 import Default from "../layouts/Default";
 import SwitchComponent from "../components/SwitchComponent";
@@ -34,6 +38,8 @@ const TaskCreate: FC = () => {
   const {
     register,
     handleSubmit,
+    setValue,
+    getValues,
     control,
     formState: { errors },
   } = useForm<Inputs>({
@@ -198,7 +204,7 @@ const TaskCreate: FC = () => {
                     options={formatSelectOptions(categories)}
                     placeholder=""
                     isMulti={true}
-                  ></Select>
+                  ></CreatableSelect>
                 )}
               ></Controller>
             )}
@@ -232,7 +238,7 @@ const TaskCreate: FC = () => {
                   options={formatSelectOptions(tags)}
                   placeholder=""
                   isMulti={true}
-                ></Select>
+                ></CreatableSelect>
               )}
             ></Controller>
           </div>
