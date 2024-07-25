@@ -46,6 +46,7 @@ const TaskCreate: FC = () => {
   const [tags, setTags] = useState<Tag[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [_, navigate] = useLocation();
+  const [loading, setLoading] = useState(false);
 
   async function fetchTags() {
     try {
