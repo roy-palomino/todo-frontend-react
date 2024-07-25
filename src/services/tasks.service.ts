@@ -4,8 +4,12 @@ import { Task, CreateTaskPayload } from "../models";
 
 import { API_BASE_URL, LIST_TASKS } from "../shared/constants";
 
+const getAccessCredential = () => {
+  return localStorage.getItem("access");
+};
+
 export const listTasks = async (): Promise<Task[]> => {
-  const access = localStorage.getItem("access");
+  const access = getAccessCredential();
   try {
     const result = await axios.get<Task[]>(`${API_BASE_URL}${LIST_TASKS}`, {
       headers: {
@@ -22,7 +26,7 @@ export const listTasks = async (): Promise<Task[]> => {
 export const createTask = async (
   task: CreateTaskPayload,
 ): Promise<Task | void> => {
-  const access = localStorage.getItem("access");
+  const access = getAccessCredential();
   try {
     const result = await axios.post<Task>(
       `${API_BASE_URL}${LIST_TASKS}`,
@@ -34,6 +38,29 @@ export const createTask = async (
       },
     );
     return result.data;
+  } catch (e: any) {
+    throw new Error(e);
+  }
+};
+
+export const updateCompletedStatus = async (
+  taskId: number,
+  done: boolean,
+): Promise<Task> => {
+  const access = getAccessCredential();
+  try {
+    const updatedTask = await axios.patch<Task>(
+      `${API_BASE_URL}${LIST_TASKS}${taskId}/`,
+      {
+        done,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${access}`,
+        },
+      },
+    );
+    return updatedTask.data;
   } catch (e: any) {
     throw new Error(e);
   }
