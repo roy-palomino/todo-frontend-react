@@ -126,7 +126,8 @@ const TaskCreate: FC = () => {
     data.tags = cleanArrayValues(data.tags as Option[]);
     data.categories = cleanArrayValues(data.categories as Option[]);
     try {
-      const result = await createTask(data as CreateTaskPayload);
+      await createTask(purgeData(data) as CreateTaskPayload);
+      toast.success("Task created!");
       navigate("/");
     } catch (e) {
       console.error(e);
