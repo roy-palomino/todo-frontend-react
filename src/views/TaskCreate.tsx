@@ -81,14 +81,51 @@ const TaskCreate: FC = () => {
     return array.map((option) => option.value);
   }
 
+  const createOption = (label: string) => ({
+    name: label,
+  });
+
+  async function handleCreateTag(inputValue: string) {
+    setLoading(true);
+    try {
+      const result = await createTag(createOption(inputValue));
+      updateFormValues(optionify(result), "tags");
+      setTags([...tags, result]);
+    } catch (e) {
+      toast.error(`Error creating tag`);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handleCreateCategory(inputValue: string) {
+    setLoading(true);
+    try {
+      const result = await createCategory(createOption(inputValue));
+      updateFormValues(optionify(result), "categories");
+      setCategories([...categories, result]);
+    } catch (e) {
+      toast.error(`Error creating category`);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  function updateFormValues(value: Option, field: keyof Inputs) {
+    let currentValues = getValues(field) as Option[];
+    let newValues = [value];
+    if (!!currentValues) {
+      newValues = currentValues.concat(newValues);
+    }
+    setValue(field, newValues);
+  }
+
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     data.tags = cleanArrayValues(data.tags as Option[]);
     data.categories = cleanArrayValues(data.categories as Option[]);
-    console.log(purgeData(data));
     try {
       const result = await createTask(data as CreateTaskPayload);
       navigate("/");
-      console.log(result);
     } catch (e) {
       console.error(e);
     }
