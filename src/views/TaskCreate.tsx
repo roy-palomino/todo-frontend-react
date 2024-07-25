@@ -65,16 +65,13 @@ const TaskCreate: FC = () => {
     }
   }
 
-  function formatSelectOptions(options: Tag[] | Category[]) {
-    let result: { value: number; label: string }[] = [];
-    for (let option of options) {
-      let entry = {
-        value: option.id,
-        label: option.name,
-      };
-      result.push(entry);
-    }
+  const optionify = (option: Tag | Category) => ({
+    value: option.id,
+    label: option.name,
+  });
 
+  function formatSelectOptions(options: Tag[] | Category[]) {
+    let result = options.map((option) => optionify(option));
     return result;
   }
 
