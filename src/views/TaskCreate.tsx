@@ -178,8 +178,11 @@ const TaskCreate: FC = () => {
                 name="categories"
                 control={control}
                 render={({ field }) => (
-                  <Select
+                  <CreatableSelect
                     {...field}
+                    isClearable
+                    isDisabled={loading}
+                    onCreateOption={handleCreateCategory}
                     id="categories"
                     styles={{
                       control: (baseStyles) => ({
@@ -208,8 +211,11 @@ const TaskCreate: FC = () => {
               name="tags"
               control={control}
               render={({ field }) => (
-                <Select
+                <CreatableSelect
                   {...field}
+                  isClearable
+                  isDisabled={loading}
+                  onCreateOption={handleCreateTag}
                   id="tags"
                   styles={{
                     control: (baseStyles) => ({
