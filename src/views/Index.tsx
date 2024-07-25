@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 
 import { useLocation } from "wouter";
+import { PlusIcon } from "@heroicons/react/20/solid";
 
 import Default from "../layouts/Default";
 import { Task } from "../models";
 import Button from "../components/Button";
-
-import { PlusIcon } from "@heroicons/react/20/solid";
+import TaskCard from "../components/TaskCard";
 
 import { listTasks } from "../services/tasks.service";
 
@@ -27,9 +27,11 @@ const Index = () => {
     <Default>
       <div className="w-full relative">
         {tasks.length > 0 ? (
-          <ul>
+          <ul className="flex flex-col space-y-4">
             {tasks.map((task: Task) => (
-              <li key={task.id}>{task.name}</li>
+              <li key={task.id}>
+                <TaskCard {...task} />
+              </li>
             ))}
           </ul>
         ) : (
@@ -39,7 +41,11 @@ const Index = () => {
             </div>
           </div>
         )}
-        <Button onClick={() => navigate("/new-task")} rounded={true} className="absolute bottom-20 right-6">
+        <Button
+          onClick={() => navigate("/new-task")}
+          rounded={true}
+          className="absolute bottom-20 right-6"
+        >
           <PlusIcon className="size-6" />
         </Button>
       </div>
