@@ -6,10 +6,22 @@ export interface Tag {
   text_color: string;
 }
 
+export interface CreateTagPayload {
+  name: string;
+  description?: string;
+  background_color?: string;
+  text_color?: string;
+}
+
 export interface Category {
   readonly id: number;
   name: string;
   description: string;
+}
+
+export interface CreateCategoryPayload {
+  name: string;
+  description?: string;
 }
 
 export interface Task {
