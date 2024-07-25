@@ -147,7 +147,7 @@ const TaskCreate: FC = () => {
 
   return (
     <Default>
-      <div className="w-full relative py-9 px-7">
+      <div className="w-full py-9 px-7">
         <h1 className="text-4xl text-slate font-bold mb-7">Add a task</h1>
         <form
           onSubmit={handleSubmit(onSubmit)}

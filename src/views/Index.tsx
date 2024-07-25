@@ -25,7 +25,7 @@ const Index = () => {
 
   return (
     <Default>
-      <div className="w-full relative">
+      <div className="w-full">
         {tasks.length > 0 ? (
           <ul className="flex flex-col space-y-4">
             {tasks.map((task: Task) => (
@@ -44,7 +44,7 @@ const Index = () => {
         <Button
           onClick={() => navigate("/new-task")}
           rounded={true}
-          className="absolute bottom-20 right-6"
+          className="bottom-20 left-96 sticky"
         >
           <PlusIcon className="size-6" />
         </Button>
