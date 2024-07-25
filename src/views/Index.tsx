@@ -6,7 +6,7 @@ import Default from "../layouts/Default";
 import { Task } from "../models";
 import Button from "../components/Button";
 
-import { PlusIcon } from "@heroicons/react/24/solid";
+import { PlusIcon } from "@heroicons/react/20/solid";
 
 import { listTasks } from "../services/tasks.service";
 
@@ -39,8 +39,8 @@ const Index = () => {
             </div>
           </div>
         )}
-        <Button onClick={() => navigate("/new-task")} rounded={true} className="absolute bottom-16 right-6">
-          <PlusIcon className="size-9" />
+        <Button onClick={() => navigate("/new-task")} rounded={true} className="absolute bottom-20 right-6">
+          <PlusIcon className="size-6" />
         </Button>
       </div>
     </Default>
