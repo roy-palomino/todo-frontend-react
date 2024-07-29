@@ -2,6 +2,7 @@ import Index from "../views/Index";
 import Login from "../views/Login";
 import Register from "../views/Register";
 import TaskCreate from "../views/TaskCreate";
+import Logout from "../views/Logout";
 
 import { Route, Switch } from "wouter";
 
@@ -31,6 +32,11 @@ export const navItems: NavItem[] = [
     name: "Task create",
     url: "/new-task",
     component: TaskCreate,
+  },
+  {
+    name: "Logout",
+    url: "/logout",
+    component: Logout,
   },
 ];
 
