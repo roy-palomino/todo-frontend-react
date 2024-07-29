@@ -26,7 +26,7 @@ const Index = () => {
   return (
     <Default>
       <div className="w-full">
-        {tasks.length > 0 ? (
+        {tasks?.length > 0 ? (
           <ul className="flex flex-col space-y-4">
             {tasks.map((task: Task) => (
               <li key={task.id}>
