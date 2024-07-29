@@ -3,6 +3,7 @@ import axios from "axios";
 import { Task, CreateTaskPayload } from "../models";
 
 import { API_BASE_URL, LIST_TASKS } from "../shared/constants";
+import axiosInstance from "./axiosInstance";
 
 const getAccessCredential = () => {
   return localStorage.getItem("access");
@@ -11,15 +12,14 @@ const getAccessCredential = () => {
 export const listTasks = async (): Promise<Task[]> => {
   const access = getAccessCredential();
   try {
-    const result = await axios.get<Task[]>(`${API_BASE_URL}${LIST_TASKS}`, {
+    const result = await axiosInstance.get<Task[]>(LIST_TASKS, {
       headers: {
         Authorization: `Bearer ${access}`,
       },
     });
-    console.log(result);
     return result.data;
-  } catch (e) {
-    throw new Error(`Error listing tasks: ${e}`);
+  } catch (error: unknown) {
+    throw new Error(`Error listing tasks: ${error}`);
   }
 };
 
