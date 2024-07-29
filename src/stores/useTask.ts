@@ -33,12 +33,9 @@ const useTaskStore = create<TaskStoreState>((set) => ({
   errorTags: false,
 
   listTasks: async () => {
-    console.log("listing tags")
     const access = useAuthStore.getState().access;
-    console.log("access")
-    console.log(access)
     if (access) {
-      const tasks = await listTasks(access);
+      const tasks = await listTasks();
       set({ tasks });
     }
   },
