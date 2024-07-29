@@ -22,9 +22,7 @@ const useAuth = create<AuthState>((set) => ({
     set({ loading: true, errorLogin: false });
     try {
       const { access } = await login(loginData);
-      console.log(access);
       set({ access, errorLogin: false });
-      console.log('access saved in store');
     } catch (_) {
       set({ errorLogin: true });
     } finally {
