@@ -1,5 +1,6 @@
 export const API_BASE_URL = "http://localhost:8000/api/";
 export const LOGIN = "token/";
+export const LOGOUT = "token/logout/";
 export const REFRESH = "token/refresh/";
 export const REGISTER = "register/";
 export const LIST_TASKS = "tasks/";
