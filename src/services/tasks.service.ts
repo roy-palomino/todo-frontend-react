@@ -20,7 +20,7 @@ export const listTasks = async (
       },
     });
     if (!result && !refreshed) {
-      await listTasks(true)
+      await listTasks(true);
     } else {
       return result.data;
     }
@@ -28,6 +28,20 @@ export const listTasks = async (
   } catch (error: unknown) {
     console.log({ error });
     throw new Error(`Error listing tasks: ${error}`);
+  }
+};
+
+export const fetchTask = async (taskId: number): Promise<Task> => {
+  const access = getAccessCredential();
+  try {
+    const result = await axiosInstance.get<Task>(`${LIST_TASKS}${taskId}/`, {
+      headers: {
+        Authorization: `Bearer ${access}`,
+      },
+    });
+    return result.data;
+  } catch (e: any) {
+    throw new Error(e);
   }
 };
 
