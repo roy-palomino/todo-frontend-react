@@ -30,7 +30,7 @@ const Index = () => {
           <ul className="flex flex-col space-y-4">
             {tasks.map((task: Task) => (
               <li key={task.id}>
-                <TaskCard {...task} />
+                <TaskCard onChecked={fetchTasks} task={task} />
               </li>
             ))}
           </ul>
