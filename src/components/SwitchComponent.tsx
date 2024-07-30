@@ -5,16 +5,21 @@ import { classNames } from "../utils/classNames";
 
 interface Props {
   onChange: (enabled: boolean) => void;
+  checked?: boolean;
   ref: any;
 }
 
 const SwitchComponent: FC<Props> = forwardRef(
-  ({ onChange }, ref: Ref<HTMLButtonElement>) => {
+  ({ onChange, checked = false }, ref: Ref<HTMLButtonElement>) => {
     const [enabled, setEnabled] = useState(false);
 
     useEffect(() => {
       onChange(enabled);
     }, [enabled]);
+
+    useEffect(() => {
+      setEnabled(checked);
+    }, [checked]);
 
     return (
       <Switch
