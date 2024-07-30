@@ -87,3 +87,22 @@ export const updateCompletedStatus = async (
     throw new Error(e);
   }
 };
+
+export const updateTask = async (task: Partial<Task>) => {
+  const access = getAccessCredential();
+  console.log(task);
+  try {
+    const updatedTask = axiosInstance.patch<Task>(
+      `${API_BASE_URL}${LIST_TASKS}${task.id}/`,
+      task,
+      {
+        headers: {
+          Authorization: `Bearer ${access}`,
+        },
+      },
+    );
+    return updatedTask;
+  } catch (e: any) {
+    throw new Error(e);
+  }
+};
