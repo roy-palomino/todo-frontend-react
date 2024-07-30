@@ -2,6 +2,7 @@ import { FC, useState } from "react";
 
 import { CalendarIcon, PencilSquareIcon } from "@heroicons/react/20/solid";
 import { toast } from "sonner";
+import { Link } from "wouter";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import "dayjs/locale/es";
@@ -55,7 +56,9 @@ const TaskCard: FC<Props> = ({ task, onChecked }) => {
         <div className="flex flex-col py-6 px-3 w-full">
           <div className="flex flex-row justify-between text-slate-600 mt-1 mb-2 items-center">
             <h2 className="text-lg font-semibold">{task.name}</h2>
-            <PencilSquareIcon className="size-6" />
+            <Link href={"/task/" + task.id}>
+              <PencilSquareIcon className="size-6" />
+            </Link>
           </div>
           <p className="text-sm text-slate-400 font-light mb-2">
             {task.description || "No description provided"}
