@@ -1,7 +1,7 @@
 import Index from "../views/Index";
 import Login from "../views/Login";
 import Register from "../views/Register";
-import TaskCreate from "../views/TaskCreate";
+import TaskCreateUpdate from "../views/TaskCreateUpdate";
 import Logout from "../views/Logout";
 
 import { Route, Switch } from "wouter";
@@ -31,7 +31,12 @@ export const navItems: NavItem[] = [
   {
     name: "Task create",
     url: "/new-task",
-    component: TaskCreate,
+    component: TaskCreateUpdate,
+  },
+  {
+    name: "Task update",
+    url: "/task/:taskId",
+    component: TaskCreateUpdate,
   },
   {
     name: "Logout",
