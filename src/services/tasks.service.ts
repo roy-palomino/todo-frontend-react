@@ -9,7 +9,9 @@ const getAccessCredential = () => {
   return localStorage.getItem("access");
 };
 
-export const listTasks = async (): Promise<Task[]> => {
+export const listTasks = async (
+  refreshed: boolean = false,
+): Promise<Task[]> => {
   const access = getAccessCredential();
   try {
     const result = await axiosInstance.get<Task[]>(LIST_TASKS, {
@@ -17,8 +19,14 @@ export const listTasks = async (): Promise<Task[]> => {
         Authorization: `Bearer ${access}`,
       },
     });
-    return result.data;
+    if (!result && !refreshed) {
+      await listTasks(true)
+    } else {
+      return result.data;
+    }
+    throw new Error(`Session has expired`);
   } catch (error: unknown) {
+    console.log({ error });
     throw new Error(`Error listing tasks: ${error}`);
   }
 };
