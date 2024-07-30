@@ -21,9 +21,8 @@ const Login: FC = () => {
   const [_location, navigate] = useLocation();
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    const { access, refresh } = await login(data);
+    const { access } = await login(data);
     localStorage.setItem("access", access);
-    localStorage.setItem("refresh", refresh);
     navigate("/");
   };
 
