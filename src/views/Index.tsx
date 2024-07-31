@@ -51,12 +51,15 @@ const Index = () => {
     <Default>
       <div className="w-full">
         <div className="flex flex-row justify-end mb-4 mt-2">
-          <button onClick={toggleHide} className="text-cyan-600 px-1">
+          <button
+            onClick={toggleHide}
+            className="text-cyan-600 font-semibold px-1"
+          >
             {hideCompleted ? "Show" : "Hide"} completed tasks
           </button>
         </div>
         {tasks?.length > 0 ? (
-          <ul className="flex flex-col space-y-4">
+          <ul className="flex flex-col space-y-4 transition-all">
             {hideCompleted ? renderUndoneTasks() : renderAllTasks()}
           </ul>
         ) : (
