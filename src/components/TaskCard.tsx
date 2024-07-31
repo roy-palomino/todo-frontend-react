@@ -11,6 +11,7 @@ import { Task } from "../models";
 import TagBadge from "./TagBadge";
 import CategoryBadge from "./CategoryBadge.tsx";
 import { updateCompletedStatus } from "../services/tasks.service.ts";
+import { classNames } from "../utils/classNames.ts";
 
 dayjs.extend(utc);
 
@@ -42,7 +43,12 @@ const TaskCard: FC<Props> = ({ task, onChecked }) => {
 
   return (
     task && (
-      <div className="flex border border-slate-300 rounded-lg shadow-md relative">
+      <div
+        className={classNames(
+          "flex border border-slate-300 rounded-lg shadow-md relative transition-all",
+          task.done ? "opacity-60" : "",
+        )}
+      >
         <CategoryBadge category={task.categories[0]} />
         <div className="py-6 pl-3 mt-1">
           <input
@@ -55,16 +61,33 @@ const TaskCard: FC<Props> = ({ task, onChecked }) => {
         </div>
         <div className="flex flex-col py-6 px-3 w-full">
           <div className="flex flex-row justify-between text-slate-600 mt-1 mb-2 items-center">
-            <h2 className="text-lg font-semibold">{task.name}</h2>
+            <h2
+              className={classNames(
+                "text-lg font-semibold",
+                task.done ? "line-through decoration-2" : "",
+              )}
+            >
+              {task.name}
+            </h2>
             <Link href={"/task/" + task.id}>
               <PencilSquareIcon className="size-6" />
             </Link>
           </div>
-          <p className="text-sm text-slate-400 font-light mb-2">
+          <p
+            className={classNames(
+              "text-sm text-slate-400 font-light mb-2",
+              task.done ? "line-through" : "",
+            )}
+          >
             {task.description || "No description provided"}
           </p>
           {task.due_date && (
-            <div className="flex flex-row text-slate-400 text-xs mb-4 font-semibold my-1">
+            <div
+              className={classNames(
+                "flex flex-row text-slate-400 text-xs mb-4 font-semibold my-1",
+                task.done ? "line-through" : "",
+              )}
+            >
               <CalendarIcon className="size-4 mr-1" />
               <time>
                 {" "}
