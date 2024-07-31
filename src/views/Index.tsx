@@ -12,6 +12,7 @@ import { listTasks } from "../services/tasks.service";
 
 const Index = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
+  const [hideCompleted, setHideCompleted] = useState(false);
   const [_, navigate] = useLocation();
 
   async function fetchTasks() {
@@ -26,13 +27,14 @@ const Index = () => {
   return (
     <Default>
       <div className="w-full">
+        <div className="flex flex-row justify-end mb-4 mt-2">
+          <button onClick={toggleHide} className="text-cyan-600 px-1">
+            {hideCompleted ? "Show" : "Hide"} completed tasks
+          </button>
+        </div>
         {tasks?.length > 0 ? (
           <ul className="flex flex-col space-y-4">
-            {tasks.map((task: Task) => (
-              <li key={task.id}>
-                <TaskCard onChecked={fetchTasks} task={task} />
-              </li>
-            ))}
+            {hideCompleted ? renderUndoneTasks() : renderAllTasks()}
           </ul>
         ) : (
           <div className="w-full mt-52 flex flex-col items-center">
