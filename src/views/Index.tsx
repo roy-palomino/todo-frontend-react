@@ -20,6 +20,29 @@ const Index = () => {
     setTasks(tasks);
   }
 
+  function toggleHide() {
+    setHideCompleted(!hideCompleted);
+  }
+
+  function renderUndoneTasks() {
+    return tasks.map(
+      (task) =>
+        !task.done && (
+          <li key={task.id}>
+            <TaskCard onChecked={fetchTasks} task={task} />
+          </li>
+        ),
+    );
+  }
+
+  function renderAllTasks() {
+    return tasks.map((task) => (
+      <li key={task.id}>
+        <TaskCard onChecked={fetchTasks} task={task} />
+      </li>
+    ));
+  }
+
   useEffect(() => {
     fetchTasks();
   }, []);
