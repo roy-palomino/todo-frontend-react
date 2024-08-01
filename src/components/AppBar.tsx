@@ -1,15 +1,21 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import Navigation from "./Navigation";
 
 import { Link } from "wouter";
 import { Bars3Icon, UserCircleIcon } from "@heroicons/react/24/solid";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
+import useAuth from "../stores/useAuth";
 
 import { navItems } from "../router";
 
-interface Props {}
+const AppBar: FC = () => {
+  const user = useAuth((store) => store.user);
+  const getSelfData = useAuth((store) => store.getSelfData);
 
-const AppBar: FC<Props> = () => {
+  useEffect(() => {
+    getSelfData();
+  }, []);
+
   return (
     <div className="flex flex-row p-4 justify-between items-center shadow-lg">
       <Menu>
@@ -35,7 +41,8 @@ const AppBar: FC<Props> = () => {
       <div className="hidden md:block">
         <Navigation />
       </div>
-      <div>
+      <div className="flex flex-row items-center">
+        <span className="text-sm font-semibold text-cyan-600 mr-1">{user?.username}</span>
         <UserCircleIcon className="size-10" />
       </div>
     </div>
