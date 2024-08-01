@@ -15,6 +15,7 @@ const Logout: FC = () => {
       localStorage.clear();
       navigate("/login", {
         replace: true,
+        state: 204,
       });
     }
   }
