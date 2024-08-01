@@ -1,22 +1,29 @@
 import { create } from "zustand";
 
-import { AuthInput } from "../models";
-import { login, refresh } from "../services/auth.service";
+import { AuthInput, User, UserSettings } from "../models";
+import { login, refresh, getSelf } from "../services/auth.service";
+import { updateSettings } from "../services/settings.service";
 
 interface AuthState {
   access: string | null;
   loading: boolean;
   errorLogin: boolean;
   errorRefresh: boolean;
+  user: User | null;
+  settings: UserSettings | null;
   getAccess: (loginData: AuthInput) => void;
-  refreshAccess: () => void;
+  refreshAccess: () => Promise<void>;
+  getSelfData: () => Promise<void>;
+  toggleHideCompleted: (newSettings: UserSettings) => Promise<void>;
 }
 
 const useAuth = create<AuthState>((set) => ({
+  user: null,
   access: null,
   loading: false,
   errorLogin: false,
   errorRefresh: false,
+  settings: null,
 
   getAccess: async (loginData: AuthInput) => {
     set({ loading: true, errorLogin: false });
