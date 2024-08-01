@@ -6,3 +6,5 @@ export const REGISTER = "register/";
 export const LIST_TASKS = "tasks/";
 export const LIST_TAGS = "tags/";
 export const LIST_CATEGORIES = "categories/";
+export const SELF = "self/";
+export const SETTINGS = "settings/";
