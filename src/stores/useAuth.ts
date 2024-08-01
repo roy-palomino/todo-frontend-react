@@ -47,6 +47,29 @@ const useAuth = create<AuthState>((set) => ({
       set({ loading: false });
     }
   },
+
+  getSelfData: async () => {
+    set({ loading: true });
+    try {
+      const response = await getSelf();
+      set({ user: response, settings: response.settings });
+    } catch (e) {
+      console.error(e);
+    } finally {
+      set({ loading: false });
+    }
+  },
+
+  toggleHideCompleted: async (newSettings: UserSettings) => {
+    set({ loading: true });
+    try {
+      const result = await updateSettings(newSettings);
+      set({ settings: result });
+    } catch (e) {
+    } finally {
+      set({ loading: false });
+    }
+  },
 }));
 
 export default useAuth;
