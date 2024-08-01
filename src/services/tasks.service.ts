@@ -26,7 +26,6 @@ export const listTasks = async (
     }
     throw new Error(`Session has expired`);
   } catch (error: unknown) {
-    console.log({ error });
     throw new Error(`Error listing tasks: ${error}`);
   }
 };
@@ -90,7 +89,6 @@ export const updateCompletedStatus = async (
 
 export const updateTask = async (task: Partial<Task>) => {
   const access = getAccessCredential();
-  console.log(task);
   try {
     const updatedTask = axiosInstance.patch<Task>(
       `${API_BASE_URL}${LIST_TASKS}${task.id}/`,
