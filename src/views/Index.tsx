@@ -4,15 +4,18 @@ import { useLocation } from "wouter";
 import { PlusIcon } from "@heroicons/react/20/solid";
 
 import Default from "../layouts/Default";
-import { Task } from "../models";
+import { Task, UserSettings } from "../models";
 import Button from "../components/Button";
 import TaskCard from "../components/TaskCard";
+import useAuth from "../stores/useAuth";
 
 import { listTasks } from "../services/tasks.service";
 
 const Index = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
-  const [hideCompleted, setHideCompleted] = useState(false);
+  const settings = useAuth((store) => store.settings);
+  const toggleHideTasks = useAuth((store) => store.toggleHideCompleted);
+
   const [_, navigate] = useLocation();
 
   async function fetchTasks() {
@@ -20,8 +23,10 @@ const Index = () => {
     setTasks(tasks);
   }
 
-  function toggleHide() {
-    setHideCompleted(!hideCompleted);
+  async function toggleHide() {
+    const newSettings = { ...settings };
+    newSettings.hide_completed_tasks = !settings?.hide_completed_tasks;
+    await toggleHideTasks(newSettings as UserSettings);
   }
 
   function renderUndoneTasks() {
