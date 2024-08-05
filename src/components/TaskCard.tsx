@@ -60,12 +60,11 @@ const TaskCard: FC<Props> = ({ task, onChecked }) => {
           />
         </div>
         <div className="flex flex-col py-6 px-3 w-full">
-          <div className="flex flex-row justify-between text-slate-600 mt-1 mb-2 items-center">
+          <div className="flex flex-row justify-between text-slate-500 mt-1 mb-2 items-center">
             <h2
-              className={cn(
-                "text-lg font-semibold",
-                task.done ? "line-through decoration-2" : "",
-              )}
+              className={cn("text-lg", {
+                "line-through decoration-2": task.done,
+              })}
             >
               {task.name}
             </h2>
