@@ -96,7 +96,7 @@ const TaskCard: FC<Props> = ({ task, onChecked }) => {
               </time>
             </div>
           )}
-          <div className="flex flex-wrap gap-x-3 gap-y-2">
+          <div className="flex flex-wrap gap-x-3 gap-y-2 mt-2">
             {task.tags.map((tag) => (
               <TagBadge key={tag.id} {...tag} />
             ))}
