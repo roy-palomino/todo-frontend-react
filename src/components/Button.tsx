@@ -1,6 +1,6 @@
 import { FC, ButtonHTMLAttributes } from "react";
 
-import { classNames } from "../utils/classNames";
+import { cn } from "../utils/classNames";
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: "primary" | "secondary";
@@ -24,7 +24,7 @@ const Button: FC<Props> = ({
     <button
       onClick={onClick}
       type={props.type}
-      className={classNames(
+      className={cn(
         "font-semibold border border-slate-800 py-3 px-9 transition-all uppercase",
         variants[variant],
         props.className || "",

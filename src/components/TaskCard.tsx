@@ -11,7 +11,7 @@ import { Task } from "../models";
 import TagBadge from "./TagBadge";
 import CategoryBadge from "./CategoryBadge.tsx";
 import { updateCompletedStatus } from "../services/tasks.service.ts";
-import { classNames } from "../utils/classNames.ts";
+import { cn } from "../utils/classNames.ts";
 
 dayjs.extend(utc);
 
@@ -44,7 +44,7 @@ const TaskCard: FC<Props> = ({ task, onChecked }) => {
   return (
     task && (
       <div
-        className={classNames(
+        className={cn(
           "flex border border-slate-300 rounded-lg shadow-md relative transition-all",
           task.done ? "opacity-60" : "",
         )}
@@ -62,7 +62,7 @@ const TaskCard: FC<Props> = ({ task, onChecked }) => {
         <div className="flex flex-col py-6 px-3 w-full">
           <div className="flex flex-row justify-between text-slate-600 mt-1 mb-2 items-center">
             <h2
-              className={classNames(
+              className={cn(
                 "text-lg font-semibold",
                 task.done ? "line-through decoration-2" : "",
               )}
@@ -74,7 +74,7 @@ const TaskCard: FC<Props> = ({ task, onChecked }) => {
             </Link>
           </div>
           <p
-            className={classNames(
+            className={cn(
               "text-sm text-slate-400 font-light mb-2",
               task.done ? "line-through" : "",
             )}
@@ -83,7 +83,7 @@ const TaskCard: FC<Props> = ({ task, onChecked }) => {
           </p>
           {task.due_date && (
             <div
-              className={classNames(
+              className={cn(
                 "flex flex-row text-slate-400 text-xs mb-4 font-semibold my-1",
                 task.done ? "line-through" : "",
               )}
