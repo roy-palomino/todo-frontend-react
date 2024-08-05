@@ -73,19 +73,20 @@ const TaskCard: FC<Props> = ({ task, onChecked }) => {
               <PencilSquareIcon className="size-6" />
             </Link>
           </div>
-          <p
-            className={cn(
-              "text-sm text-slate-400 font-light mb-2",
-              task.done ? "line-through" : "",
-            )}
-          >
-            {task.description || "No description provided"}
-          </p>
+          {task.description && (
+            <p
+              className={cn("text-sm text-slate-400 font-light mb-2", {
+                "line-through": task.done,
+              })}
+            >
+              {task.description}
+            </p>
+          )}
           {task.due_date && (
             <div
               className={cn(
                 "flex flex-row text-slate-400 text-xs mb-4 font-semibold my-1",
-                task.done ? "line-through" : "",
+                { "line-through": task.done },
               )}
             >
               <CalendarIcon className="size-4 mr-1" />
