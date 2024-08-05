@@ -296,8 +296,10 @@ const TaskDetail: FC<Props> = ({ task, onTaskUpdated }) => {
                 <DatePicker
                   className="w-full border border-slate-400 rounded-lg p-2 mb-4 mt-1"
                   placeholderText=""
+                  showTimeSelect={true}
                   onChange={(date) => field.onChange(date)}
                   selected={field.value}
+                  dateFormat="Pp"
                 />
               )}
             ></Controller>
