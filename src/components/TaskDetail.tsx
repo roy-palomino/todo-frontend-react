@@ -167,6 +167,7 @@ const TaskDetail: FC<Props> = ({ task, onTaskUpdated }) => {
       await updateTask(purgeData(updatableTask) as Partial<Task>);
       toast.success("Task updated!");
       onTaskUpdated && onTaskUpdated();
+      navigate("/");
     } catch (e: any) {
       throw new Error(e);
     }
