@@ -88,20 +88,30 @@ const TaskCard: FC<Props> = ({ task, onChecked }) => {
               {task.description}
             </p>
           )}
-          {task.due_date && (
-            <div
-              className={cn(
-                "flex flex-row text-slate-400 text-xs mb-4 my-1",
-                { "line-through": task.done },
+          <div className="flex w-full justify-between items-center">
+            {task.due_date && (
+              <div
+                className={cn(
+                  "flex flex-row text-slate-400 text-xs mb-4 my-1",
+                  {
+                    "line-through": task.done,
+                  },
+                )}
+              >
+                <CalendarIcon className="size-4 mr-1" />
+                <time>
+                  {" "}
+                  {dayjs(task.due_date).utc(true).format("DD/MM/YYYY HH:mm a")}
+                </time>
+              </div>
+            )}
+            <div className="flex space-x-1">
+              {task.is_important && <FireIcon className="w-6 text-red-600" />}
+              {task.is_urgent && (
+                <ExclamationTriangleIcon className="w-6 text-yellow-500" />
               )}
-            >
-              <CalendarIcon className="size-4 mr-1" />
-              <time>
-                {" "}
-                {dayjs(task.due_date).utc(true).format("DD/MM/YYYY HH:mm a")}
-              </time>
             </div>
-          )}
+          </div>
           <div className="flex flex-wrap gap-x-3 gap-y-2 mt-2">
             {task.tags.map((tag) => (
               <TagBadge key={tag.id} {...tag} />
