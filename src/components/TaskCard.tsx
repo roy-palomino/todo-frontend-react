@@ -70,6 +70,7 @@ const TaskCard: FC<Props> = ({ task, onChecked }) => {
             <h2
               className={cn("font-semibold", {
                 "line-through decoration-2": task.done,
+                "text-red-700": task.is_important,
               })}
             >
               {task.name}
