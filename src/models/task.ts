@@ -32,7 +32,7 @@ export interface Task {
   tags: Tag[];
   done: boolean;
   owner: number;
-  due_date: Date | null;
+  due_date: string | Date | null;
   is_important: boolean;
   is_urgent: boolean;
   created_at: Date;

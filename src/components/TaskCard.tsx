@@ -50,7 +50,7 @@ const TaskCard: FC<Props> = ({ task, onChecked }) => {
         )}
       >
         <CategoryBadge category={task.categories[0]} />
-        <div className="py-6 pl-3 mt-1">
+        <div className="pt-4 pl-3 mt-1">
           <input
             disabled={loading}
             checked={task.done}
@@ -59,17 +59,17 @@ const TaskCard: FC<Props> = ({ task, onChecked }) => {
             type="checkbox"
           />
         </div>
-        <div className="flex flex-col py-6 px-3 w-full">
+        <div className="flex flex-col pt-5 pb-4 px-3 w-full">
           <div className="flex flex-row justify-between text-slate-500 mt-1 mb-2 items-center">
             <h2
-              className={cn("text-lg", {
+              className={cn("font-semibold", {
                 "line-through decoration-2": task.done,
               })}
             >
               {task.name}
             </h2>
             <Link href={"/task/" + task.id}>
-              <PencilSquareIcon className="size-6" />
+              <PencilSquareIcon className="size-5" />
             </Link>
           </div>
           {task.description && (
@@ -84,7 +84,7 @@ const TaskCard: FC<Props> = ({ task, onChecked }) => {
           {task.due_date && (
             <div
               className={cn(
-                "flex flex-row text-slate-400 text-xs mb-4 font-semibold my-1",
+                "flex flex-row text-slate-400 text-xs mb-4 my-1",
                 { "line-through": task.done },
               )}
             >
