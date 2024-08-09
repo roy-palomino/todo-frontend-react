@@ -1,82 +1,23 @@
-import { useEffect, useState } from "react";
-
 import { useLocation } from "wouter";
 import { PlusIcon } from "@heroicons/react/20/solid";
 
 import Default from "../layouts/Default";
-import { Task, UserSettings } from "../models";
+import { UserSettings } from "../models";
 import Button from "../components/Button";
-import TaskCard from "../components/TaskCard";
 import useAuth from "../stores/useAuth";
-
-import { listTasks } from "../services/tasks.service";
+import TaskList from "../components/TaskList";
 
 const Home = () => {
-  const [tasks, setTasks] = useState<Task[]>([]);
   const settings = useAuth((store) => store.settings);
   const toggleHideTasks = useAuth((store) => store.toggleHideCompleted);
 
   const [_, navigate] = useLocation();
-
-  async function fetchTasks() {
-    const tasks = await listTasks();
-    setTasks(tasks);
-  }
 
   async function toggleHide() {
     const newSettings = { ...settings };
     newSettings.hide_completed_tasks = !settings?.hide_completed_tasks;
     await toggleHideTasks(newSettings as UserSettings);
   }
-
-  function areDatesEqual(
-    date1: string | Date,
-    date2: string | Date = new Date().toISOString(),
-  ) {
-    const parsedDate1 = typeof date1 === "string" ? new Date(date1) : date1;
-    const parsedDate2 = typeof date2 === "string" ? new Date(date2) : date2;
-
-    return (
-      parsedDate1.getUTCFullYear === parsedDate2.getUTCFullYear &&
-      parsedDate1.getUTCMonth === parsedDate2.getUTCMonth &&
-      parsedDate1.getUTCDay === parsedDate2.getUTCDay
-    );
-  }
-
-  function renderUndoneTasks() {
-    return tasks.map(
-      (task) =>
-        !task.done && (
-          <li key={task.id}>
-            <TaskCard onChecked={fetchTasks} task={task} />
-          </li>
-        ),
-    );
-  }
-
-  function renderAllTasks() {
-    return tasks.map((task) => (
-      <li key={task.id}>
-        <TaskCard onChecked={fetchTasks} task={task} />
-      </li>
-    ));
-  }
-
-  useEffect(() => {
-    fetchTasks();
-  }, []);
-
-  useEffect(() => {
-    let classifiedTasks = tasks.reduce((accumulator: any, current: Task) => {
-      if (current.due_date && !accumulator[current.due_date.toString()]) {
-        accumulator[current.due_date.toString()] = [current];
-      } else if (current.due_date) {
-        accumulator[current.due_date.toString()].push(current);
-      }
-      return accumulator;
-    }, {});
-    console.log(classifiedTasks);
-  }, [tasks]);
 
   return (
     <Default>
