@@ -1,4 +1,4 @@
-import Index from "../views/Index";
+import Home from "../views/Home";
 import Login from "../views/Login";
 import Register from "../views/Register";
 import TaskCreateUpdate from "../views/TaskCreateUpdate";
@@ -16,7 +16,7 @@ export const navItems: NavItem[] = [
   {
     name: "Home",
     url: "/",
-    component: Index,
+    component: Home,
   },
   {
     name: "Login",
