@@ -47,6 +47,7 @@ const TaskCard: FC<Props> = ({ task, onChecked }) => {
         className={cn(
           "flex border border-slate-300 rounded-lg shadow-md relative transition-all",
           { "opacity-60": task.done },
+          { "border-yellow-400 shadow-yellow-100 shadow-lg": task.is_urgent },
         )}
       >
         <CategoryBadge category={task.categories[0]} />
