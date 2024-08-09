@@ -1,6 +1,11 @@
 import { FC, useState } from "react";
 
-import { CalendarIcon, PencilSquareIcon } from "@heroicons/react/20/solid";
+import {
+  CalendarIcon,
+  PencilSquareIcon,
+  FireIcon,
+  ExclamationTriangleIcon,
+} from "@heroicons/react/20/solid";
 import { toast } from "sonner";
 import { Link } from "wouter";
 import dayjs from "dayjs";
