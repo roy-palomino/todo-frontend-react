@@ -30,26 +30,11 @@ const Home = () => {
             {settings?.hide_completed_tasks ? "Show" : "Hide"} completed tasks
           </button>
         </div>
-        {tasks?.length > 0 ? (
-          <>
-            <h3 className="text-slate-800 text-3xl py-2">Today</h3>
-            <ul className="flex flex-col space-y-4 transition-all">
-              {settings?.hide_completed_tasks
-                ? renderUndoneTasks()
-                : renderAllTasks()}
-            </ul>
-          </>
-        ) : (
-          <div className="w-full mt-52 flex flex-col items-center">
-            <div className="text-center w-full text-lg text-slate-400 mb-4">
-              You don't have any task
-            </div>
-          </div>
-        )}
+        <TaskList hideCompleted={!!settings?.hide_completed_tasks} />
         <Button
           onClick={() => navigate("/new-task")}
           rounded={true}
-          className="absolute right-0 bottom-16"
+          className="fixed !shadow-xl bottom-16 right-4"
         >
           <PlusIcon className="size-6" />
         </Button>
