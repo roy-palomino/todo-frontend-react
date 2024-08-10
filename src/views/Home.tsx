@@ -21,11 +21,11 @@ const Home = () => {
 
   return (
     <Default>
-      <div className="w-full relative">
+      <div className="w-full relative bg-transparent">
         <div className="flex flex-row justify-end mb-4 mt-2">
           <button
             onClick={toggleHide}
-            className="text-cyan-600 font-semibold px-1"
+            className="text-white text-lg font-light bg-primary-2 px-4 py-1 rounded-lg"
           >
             {settings?.hide_completed_tasks ? "Show" : "Hide"} completed tasks
           </button>
