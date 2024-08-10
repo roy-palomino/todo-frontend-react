@@ -68,7 +68,7 @@ const TaskCard: FC<Props> = ({ task, onChecked }) => {
         <div className="flex flex-col pt-5 pb-4 px-3 w-full">
           <div className="flex flex-row justify-between text-slate-500 mt-1 mb-2 items-center">
             <h2
-              className={cn("font-semibold", {
+              className={cn("font-semibold text-dark", {
                 "line-through decoration-2": task.done,
                 "text-red-700": task.is_important,
               })}
@@ -81,7 +81,7 @@ const TaskCard: FC<Props> = ({ task, onChecked }) => {
           </div>
           {task.description && (
             <p
-              className={cn("text-sm text-slate-400 font-light mb-2", {
+              className={cn("text-xs text-black mb-2", {
                 "line-through": task.done,
               })}
             >
