@@ -17,7 +17,7 @@ const AppBar: FC = () => {
   }, []);
 
   return (
-    <div className="flex flex-row p-4 justify-between items-center shadow-lg">
+    <div className="flex flex-row py-4 px-5 justify-between items-center shadow-lg">
       <Menu>
         <MenuButton>
           <Bars3Icon className="size-8" />
