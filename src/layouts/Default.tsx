@@ -7,9 +7,9 @@ interface Props {
 
 const DefaultLayout: FC<Props> = ({ children }) => {
   return (
-    <div className="flex flex-col min-h-dvh">
+    <div className="flex flex-col min-h-dvh bg-primary-1">
       <AppBar />
-      <div className="container mx-auto flex flex-1 h-max px-2 py-4">{children}</div>
+      <div className="container mx-auto flex flex-1 h-max px-5 py-4">{children}</div>
     </div>
   );
 };
