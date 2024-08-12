@@ -34,7 +34,7 @@ const Home = () => {
         <Button
           onClick={() => navigate("/new-task")}
           rounded={true}
-          className="fixed !shadow-xl bottom-16 right-4 bg-accent-2 border-none"
+          className="fixed !shadow-xl bottom-16 right-4 bg-primary-2 border-primary-1"
         >
           <PlusIcon className="size-6" />
         </Button>
