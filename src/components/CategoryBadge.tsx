@@ -8,7 +8,7 @@ interface Props {
 const CategoryBadge: FC<Props> = ({ category }) => {
   if (category)
     return (
-      <span className="absolute right-3 bg-secondary-3 font-thin text-white -top-1.5 px-4 py-0.5 rounded-md">
+      <span className="absolute right-3 bg-secondary-1 font-thin text-white -top-1.5 px-4 py-0.5 rounded-md">
         {category.name}
       </span>
     );
