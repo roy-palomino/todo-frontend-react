@@ -192,7 +192,9 @@ const TaskDetail: FC<Props> = ({ task, onTaskUpdated }) => {
   return (
     <Default>
       <div className="w-full py-9 px-7">
-        <h1 className="text-4xl text-slate font-bold mb-7">Add a task</h1>
+        <h1 className="text-4xl text-white text-center font-bold mb-7">
+          Add a task
+        </h1>
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col space-y-4"
@@ -202,7 +204,7 @@ const TaskDetail: FC<Props> = ({ task, onTaskUpdated }) => {
               Name
             </label>
             <input
-              className="w-full border border-slate-400 rounded-lg p-2 mb-4 mt-1"
+              className="w-full rounded-lg p-2 mb-4 mt-1 bg-smoke"
               type="text"
               id="name"
               {...register("name", { required: true })}
@@ -214,7 +216,7 @@ const TaskDetail: FC<Props> = ({ task, onTaskUpdated }) => {
               Description
             </label>
             <textarea
-              className="w-full border border-slate-400 rounded-lg p-2 mb-4 mt-1"
+              className="w-full rounded-lg p-2 mb-4 mt-1 bg-smoke"
               id="description"
               {...register("description", { required: false })}
             ></textarea>
@@ -237,11 +239,10 @@ const TaskDetail: FC<Props> = ({ task, onTaskUpdated }) => {
                     styles={{
                       control: (baseStyles) => ({
                         ...baseStyles,
-                        borderRadius: "0.5rem",
-                        borderColor: "#94a3b8",
                         padding: "0.3rem 0.5rem",
                         marginTop: "0.25rem",
                         marginBottom: "1rem",
+                        backgroundColor: "#D9E1E2",
                       }),
                     }}
                     //@ts-ignore
@@ -270,12 +271,11 @@ const TaskDetail: FC<Props> = ({ task, onTaskUpdated }) => {
                   styles={{
                     control: (baseStyles) => ({
                       ...baseStyles,
-                      borderRadius: "0.5rem",
-                      borderColor: "#94a3b8",
                       padding: "0.3rem 0.5rem",
                       width: "100%",
                       marginTop: "0.25rem",
                       marginBottom: "1rem",
+                      backgroundColor: "#D9E1E2",
                     }),
                   }}
                   //@ts-ignore
@@ -295,7 +295,7 @@ const TaskDetail: FC<Props> = ({ task, onTaskUpdated }) => {
               name="due_date"
               render={({ field }) => (
                 <DatePicker
-                  className="w-full border border-slate-400 rounded-lg p-2 mb-4 mt-1"
+                  className="w-full rounded-lg p-2 mb-4 mt-1 bg-smoke"
                   placeholderText=""
                   showTimeSelect={true}
                   onChange={(date) => field.onChange(date)}
@@ -325,7 +325,9 @@ const TaskDetail: FC<Props> = ({ task, onTaskUpdated }) => {
               <Controller
                 control={control}
                 name="is_urgent"
-                render={({ field }) => <SwitchComponent checked={field.value} {...field} />}
+                render={({ field }) => (
+                  <SwitchComponent checked={field.value} {...field} />
+                )}
               ></Controller>
             </div>
           </div>
