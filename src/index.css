@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 .label-form {
-  @apply text-slate-500;
+  @apply text-slate-200;
 }
