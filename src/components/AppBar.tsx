@@ -17,10 +17,10 @@ const AppBar: FC = () => {
   }, []);
 
   return (
-    <div className="flex flex-row py-4 px-5 justify-between items-center shadow-lg">
+    <div className="flex flex-row py-4 px-5 justify-between items-center bg-primary-1">
       <Menu>
         <MenuButton>
-          <Bars3Icon className="size-8" />
+          <Bars3Icon className="size-8 text-white" />
         </MenuButton>
         <MenuItems
           anchor="bottom start"
@@ -42,8 +42,8 @@ const AppBar: FC = () => {
         <Navigation />
       </div>
       <div className="flex flex-row items-center">
-        <span className="text-sm font-semibold text-cyan-600 mr-1">{user?.username}</span>
-        <UserCircleIcon className="size-10" />
+        <span className="text-sm font-semibold text-white mr-1">{user?.username}</span>
+        <UserCircleIcon className="size-10 text-white" />
       </div>
     </div>
   );
