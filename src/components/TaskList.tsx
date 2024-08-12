@@ -68,7 +68,7 @@ const TaskList: FC<Props> = ({ hideCompleted = false }) => {
       {!!classifiedTasks &&
         Object.keys(classifiedTasks).map((due_date: string) => (
           <li className="hidden has-[li]:block" key={due_date}>
-            <h3 className="text-slate-600 text-center text-xl mt-6 mb-1">
+            <h3 className="text-white text-left font-light text-lg mt-6 mb-1">
               {due_date}
             </h3>
             <ul className="flex flex-col space-y-4">
