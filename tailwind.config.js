@@ -12,6 +12,7 @@ export default {
         "accent-1": "#FF0000",
         "accent-2": "#23A26D",
         "dark": "#253334",
+        "smoke": "#D9E1E2",
       }
     },
   },
