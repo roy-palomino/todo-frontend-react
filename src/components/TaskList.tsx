@@ -54,14 +54,37 @@ const TaskList: FC<Props> = ({ hideCompleted = false }) => {
     ));
   }
 
-  async function fetchTasks() {
+  const fetchTasks = async () => {
     const tasks = await listTasks();
     setTasks(classifyTasks(tasks));
-  }
+  };
 
   useEffect(() => {
     fetchTasks();
   }, []);
+
+  const useFetchClassifiedTasks = () => {
+    const [tasks, setTasks] = useState<ClassifiedTasks | null>(null);
+    const [isFetching, setIsFetching] = useState(false);
+
+    useEffect(() => {
+      const fetchTasks = async () => {
+        setIsFetching(true);
+        try {
+          const tasks = await listTasks();
+          setTasks(classifyTasks(tasks));
+        } catch (e) {
+          console.error(e);
+        } finally {
+          setIsFetching(false);
+        }
+      };
+
+      fetchTasks();
+    }, []);
+
+    return [classifiedTasks, isFetching];
+  };
 
   return (
     <ul>
