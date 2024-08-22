@@ -47,3 +47,7 @@ export interface CreateTaskPayload {
   is_important: boolean;
   is_urgent: boolean;
 }
+
+export interface ClassifiedTasks {
+  [key: string]: Task[];
+}
