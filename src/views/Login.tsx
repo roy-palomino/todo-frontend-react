@@ -27,8 +27,8 @@ const Login: FC = () => {
   };
 
   return (
-    <div className="flex justify-center w-full pt-8 px-2">
-      <div className="flex flex-col w-full border-0 border-[#E5E5E7] rounded-2xl py-12 px-2 shadow-none md:border">
+    <div className="flex justify-center w-full pt-8 px-2 max-w-4xl mx-auto md:mt-16">
+      <div className="flex flex-col w-full border-0 border-[#E5E5E7] rounded-2xl py-12 px-2 shadow-none md:border md:p-28">
         <h1 className="text-center text-black text-5xl font-bold mb-16">
           Login here
         </h1>
@@ -45,6 +45,7 @@ const Login: FC = () => {
             </label>
             <input
               className="w-full border border-[#E5E5E7] rounded-lg p-2 mb-4 mt-1"
+              autoFocus={true}
               type="text"
               id="username"
               {...register("username", { required: true })}

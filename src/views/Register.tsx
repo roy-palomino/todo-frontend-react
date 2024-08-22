@@ -30,8 +30,8 @@ const Register: FC = () => {
   };
 
   return (
-    <div className="flex justify-center w-full pt-0 px-2">
-      <div className="flex flex-col w-full border-0 border-[#E5E5E7] rounded-2xl py-12 px-2 shadow-none md:border">
+    <div className="flex justify-center w-full pt-0 px-2 max-w-4xl mx-auto md:mt-16">
+      <div className="flex flex-col w-full border-0 border-[#E5E5E7] rounded-2xl py-12 px-2 shadow-none md:border md:p-28">
         <h1 className="text-center text-black text-5xl font-bold mb-10">
           Register here
         </h1>
@@ -44,6 +44,7 @@ const Register: FC = () => {
               Email
             </label>
             <input
+              autoFocus={true}
               className="w-full border border-[#E5E5E7] rounded-lg p-2 mb-4 mt-1"
               type="email"
               id="email"
@@ -127,14 +128,16 @@ const Register: FC = () => {
               {...register("password2", { required: true })}
             ></input>
           </div>
-          <Button type="submit">Register</Button>
-          <Button
-            type="button"
-            variant="secondary"
-            onClick={() => navigate("/login")}
-          >
-            I already have an account
-          </Button>
+          <div className="flex flex-col space-y-2">
+            <Button type="submit">Register</Button>
+            <Button
+              type="button"
+              variant="secondary"
+              onClick={() => navigate("/login")}
+            >
+              I already have an account
+            </Button>
+          </div>
         </form>
       </div>
     </div>
