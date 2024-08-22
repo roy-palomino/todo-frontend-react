@@ -17,6 +17,7 @@ import TagBadge from "./TagBadge";
 import CategoryBadge from "./CategoryBadge.tsx";
 import { updateCompletedStatus } from "../services/tasks.service.ts";
 import { cn } from "../utils/classNames.ts";
+import Loading from "./LoadingComponent.tsx";
 
 dayjs.extend(utc);
 
@@ -52,9 +53,9 @@ const TaskCard: FC<Props> = ({ task, onChecked }) => {
         className={cn(
           "flex border border-slate-300 rounded-2xl shadow-md bg-white relative transition-all",
           { "opacity-60": task.done },
-          // { "border-yellow-400 shadow-yellow-100 shadow-lg": task.is_urgent },
         )}
       >
+        {loading && <Loading />}
         <CategoryBadge category={task.categories[0]} />
         <div className="pt-4 pl-3 mt-1">
           <input
@@ -106,9 +107,9 @@ const TaskCard: FC<Props> = ({ task, onChecked }) => {
               </div>
             )}
             <div className="flex space-x-1">
-              {task.is_important && <FireIcon className="w-6 text-red-600" />}
+              {task.is_important && <FireIcon className="w-6 md:w-8 text-red-600" />}
               {task.is_urgent && (
-                <ExclamationTriangleIcon className="w-6 text-yellow-500" />
+                <ExclamationTriangleIcon className="w-6 md:w-8 text-yellow-500" />
               )}
             </div>
           </div>
