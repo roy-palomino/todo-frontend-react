@@ -9,7 +9,7 @@ const MyComponent: FC<Props> = (tag) => {
   return (
     <span
       className={cn(
-        "rounded-xl px-3 py-[5px] font-semibold text-xs text-white bg-accent-2",
+        "rounded-xl px-3 py-[5px] font-semibold text-xs text-white bg-accent-2 md:text-sm",
         // "text-" + tag.text_color,
         // "bg-" + tag.background_color,
         // "border-" + tag.text_color,
