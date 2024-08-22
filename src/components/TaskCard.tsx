@@ -68,7 +68,7 @@ const TaskCard: FC<Props> = ({ task, onChecked }) => {
         <div className="flex flex-col pt-5 pb-4 px-3 w-full">
           <div className="flex flex-row justify-between text-slate-500 mt-1 mb-2 items-center">
             <h2
-              className={cn("font-semibold text-dark", {
+              className={cn("font-semibold text-dark md:text-xl", {
                 "line-through decoration-2": task.done,
                 "text-red-700": task.is_important,
               })}
@@ -76,7 +76,7 @@ const TaskCard: FC<Props> = ({ task, onChecked }) => {
               {task.name}
             </h2>
             <Link href={"/task/" + task.id}>
-              <PencilSquareIcon className="size-5" />
+              <PencilSquareIcon className="size-5 md:size-6" />
             </Link>
           </div>
           {task.description && (
