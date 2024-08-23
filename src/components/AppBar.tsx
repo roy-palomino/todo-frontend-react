@@ -36,7 +36,7 @@ const AppBar: FC = () => {
   }, []);
 
   return (
-    <div className="flex flex-row py-4 px-5 md:px-9 justify-between items-center bg-primary-1 max-w-[1200px]">
+    <div className="flex flex-row py-4 px-5 md:px-9 w-full justify-between items-center bg-primary-1 max-w-[1200px] mx-auto">
       {currentView && (
         <div className="flex flex-row items-center">
           <button>
