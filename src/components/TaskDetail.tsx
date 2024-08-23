@@ -45,7 +45,7 @@ interface UpdatableTask extends Task {
   tags: Tag[] | Option[];
 }
 
-const TaskDetail: FC<Props> = ({ task, onTaskUpdated }) => {
+const TaskForm: FC<Props> = ({ task, onTaskUpdated }) => {
   const {
     register,
     reset,
@@ -61,47 +61,15 @@ const TaskDetail: FC<Props> = ({ task, onTaskUpdated }) => {
     },
   });
 
-  const [tags, setTags] = useState<Tag[]>([]);
-  const [categories, setCategories] = useState<Category[]>([]);
   const [_, navigate] = useLocation();
   const [loading, setLoading] = useState(false);
-
-  async function fetchTags() {
-    try {
-      let tags = await listTags();
-      setTags(tags);
-    } catch (e: any) {
-      console.error(e);
-    }
-  }
-
-  async function fetchCategories() {
-    try {
-      let categories = await listCategories();
-      setCategories(categories);
-    } catch (e: any) {
-      console.error(e);
-    }
-  }
-
-  const optionify = (option: Tag | Category) => ({
-    value: option.id,
-    label: option.name,
-  });
+  const [tags, setTags] = useState<Tag[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
 
   function formatSelectOptions(options: Tag[] | Category[]) {
     let result = options.map((option) => optionify(option));
     return result;
   }
-
-  function cleanArrayValues(array: { value: number; label: string }[]) {
-    if (!array) return [];
-    return array.map((option) => option.value);
-  }
-
-  const createOption = (label: string) => ({
-    name: label,
-  });
 
   async function handleCreateTag(inputValue: string) {
     setLoading(true);
@@ -131,13 +99,9 @@ const TaskDetail: FC<Props> = ({ task, onTaskUpdated }) => {
     }
   }
 
-  function updateFormValues(value: Option, field: keyof Inputs) {
-    let currentValues = getValues(field) as Option[];
-    let newValues = [value];
-    if (!!currentValues) {
-      newValues = currentValues.concat(newValues);
-    }
-    setValue(field, newValues);
+  function cleanArrayValues(array: { value: number; label: string }[]) {
+    if (!array) return [];
+    return array.map((option) => option.value);
   }
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
@@ -151,6 +115,19 @@ const TaskDetail: FC<Props> = ({ task, onTaskUpdated }) => {
     }
   };
 
+  const createOption = (label: string) => ({
+    name: label,
+  });
+
+  function updateFormValues(value: Option, field: keyof Inputs) {
+    let currentValues = getValues(field) as Option[];
+    let newValues = [value];
+    if (!!currentValues) {
+      newValues = currentValues.concat(newValues);
+    }
+    setValue(field, newValues);
+  }
+
   const handleCreateTask: SubmitHandler<Inputs> = async (data) => {
     try {
       await createTask(purgeData(data) as CreateTaskPayload);
@@ -160,6 +137,24 @@ const TaskDetail: FC<Props> = ({ task, onTaskUpdated }) => {
       throw new Error(e);
     }
   };
+
+  async function fetchTags() {
+    try {
+      let tags = await listTags();
+      setTags(tags);
+    } catch (e: any) {
+      console.error(e);
+    }
+  }
+
+  async function fetchCategories() {
+    try {
+      let categories = await listCategories();
+      setCategories(categories);
+    } catch (e: any) {
+      console.error(e);
+    }
+  }
 
   const handleUpdateTask: SubmitHandler<Inputs> = async (data) => {
     const updatableTask = { id: task?.id, ...data };
@@ -172,6 +167,11 @@ const TaskDetail: FC<Props> = ({ task, onTaskUpdated }) => {
       throw new Error(e);
     }
   };
+
+  const optionify = (option: Tag | Category) => ({
+    value: option.id,
+    label: option.name,
+  });
 
   useEffect(() => {
     fetchTags();
@@ -190,153 +190,156 @@ const TaskDetail: FC<Props> = ({ task, onTaskUpdated }) => {
   }, [task]);
 
   return (
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col space-y-4">
+      <div>
+        <label className="label-form" htmlFor="name">
+          Name
+        </label>
+        <input
+          className="w-full rounded-lg p-2 mb-4 mt-1 bg-smoke"
+          type="text"
+          id="name"
+          {...register("name", { required: true })}
+        ></input>
+        {errors.name && <div>This field is required</div>}
+      </div>
+      <div>
+        <label className="label-form" htmlFor="description">
+          Description
+        </label>
+        <textarea
+          className="w-full rounded-lg p-2 mb-4 mt-1 bg-smoke"
+          id="description"
+          {...register("description", { required: false })}
+        ></textarea>
+      </div>
+      <div>
+        <label className="label-form" htmlFor="categories">
+          Categories
+        </label>
+        {categories.length > 0 && (
+          <Controller
+            name="categories"
+            control={control}
+            render={({ field }) => (
+              <CreatableSelect
+                {...field}
+                isClearable
+                isDisabled={loading}
+                onCreateOption={handleCreateCategory}
+                id="categories"
+                styles={{
+                  control: (baseStyles) => ({
+                    ...baseStyles,
+                    padding: "0.3rem 0.5rem",
+                    marginTop: "0.25rem",
+                    marginBottom: "1rem",
+                    backgroundColor: "#D9E1E2",
+                  }),
+                }}
+                //@ts-ignore
+                options={formatSelectOptions(categories)}
+                placeholder=""
+                isMulti={true}
+              ></CreatableSelect>
+            )}
+          ></Controller>
+        )}
+      </div>
+      <div>
+        <label className="label-form" htmlFor="tags">
+          Tags
+        </label>
+        <Controller
+          name="tags"
+          control={control}
+          render={({ field }) => (
+            <CreatableSelect
+              {...field}
+              isClearable
+              isDisabled={loading}
+              onCreateOption={handleCreateTag}
+              id="tags"
+              styles={{
+                control: (baseStyles) => ({
+                  ...baseStyles,
+                  padding: "0.3rem 0.5rem",
+                  width: "100%",
+                  marginTop: "0.25rem",
+                  marginBottom: "1rem",
+                  backgroundColor: "#D9E1E2",
+                }),
+              }}
+              //@ts-ignore
+              options={formatSelectOptions(tags)}
+              placeholder=""
+              isMulti={true}
+            ></CreatableSelect>
+          )}
+        ></Controller>
+      </div>
+      <div className="flex flex-col">
+        <label className="label-form" htmlFor="due_date">
+          Due date
+        </label>
+        <Controller
+          control={control}
+          name="due_date"
+          render={({ field }) => (
+            <DatePicker
+              className="w-full rounded-lg p-2 mb-4 mt-1 bg-smoke"
+              placeholderText=""
+              showTimeSelect={true}
+              onChange={(date) => field.onChange(date)}
+              selected={field.value}
+              dateFormat="Pp"
+            />
+          )}
+        ></Controller>
+      </div>
+      <div className="flex flex-row space-x-2 w-full mb-4 mt-1">
+        <div className="w-full flex flex-col items-start">
+          <label htmlFor="is_important" className="label-form">
+            <span className="label-form">Important task</span>
+          </label>
+          <Controller
+            control={control}
+            name="is_important"
+            render={({ field }) => (
+              <SwitchComponent checked={field.value} {...field} />
+            )}
+          ></Controller>
+        </div>
+        <div className="w-full flex flex-col items-start">
+          <label htmlFor="is_urgent" className="label-form">
+            <span className="label-form">Urgent task</span>
+          </label>
+          <Controller
+            control={control}
+            name="is_urgent"
+            render={({ field }) => (
+              <SwitchComponent checked={field.value} {...field} />
+            )}
+          ></Controller>
+        </div>
+      </div>
+      <div className="mt-8 w-full">
+        <Button type="submit" className="w-full">
+          {task ? "Update" : "Create"}
+        </Button>
+      </div>
+    </form>
+  );
+};
+
+const TaskDetail: FC<Props> = ({ task, onTaskUpdated }) => {
+  return (
     <Default>
       <div className="w-full py-9 px-7">
         <h1 className="text-4xl text-white text-center font-bold mb-7">
           Add a task
         </h1>
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col space-y-4"
-        >
-          <div>
-            <label className="label-form" htmlFor="name">
-              Name
-            </label>
-            <input
-              className="w-full rounded-lg p-2 mb-4 mt-1 bg-smoke"
-              type="text"
-              id="name"
-              {...register("name", { required: true })}
-            ></input>
-            {errors.name && <div>This field is required</div>}
-          </div>
-          <div>
-            <label className="label-form" htmlFor="description">
-              Description
-            </label>
-            <textarea
-              className="w-full rounded-lg p-2 mb-4 mt-1 bg-smoke"
-              id="description"
-              {...register("description", { required: false })}
-            ></textarea>
-          </div>
-          <div>
-            <label className="label-form" htmlFor="categories">
-              Categories
-            </label>
-            {categories.length > 0 && (
-              <Controller
-                name="categories"
-                control={control}
-                render={({ field }) => (
-                  <CreatableSelect
-                    {...field}
-                    isClearable
-                    isDisabled={loading}
-                    onCreateOption={handleCreateCategory}
-                    id="categories"
-                    styles={{
-                      control: (baseStyles) => ({
-                        ...baseStyles,
-                        padding: "0.3rem 0.5rem",
-                        marginTop: "0.25rem",
-                        marginBottom: "1rem",
-                        backgroundColor: "#D9E1E2",
-                      }),
-                    }}
-                    //@ts-ignore
-                    options={formatSelectOptions(categories)}
-                    placeholder=""
-                    isMulti={true}
-                  ></CreatableSelect>
-                )}
-              ></Controller>
-            )}
-          </div>
-          <div>
-            <label className="label-form" htmlFor="tags">
-              Tags
-            </label>
-            <Controller
-              name="tags"
-              control={control}
-              render={({ field }) => (
-                <CreatableSelect
-                  {...field}
-                  isClearable
-                  isDisabled={loading}
-                  onCreateOption={handleCreateTag}
-                  id="tags"
-                  styles={{
-                    control: (baseStyles) => ({
-                      ...baseStyles,
-                      padding: "0.3rem 0.5rem",
-                      width: "100%",
-                      marginTop: "0.25rem",
-                      marginBottom: "1rem",
-                      backgroundColor: "#D9E1E2",
-                    }),
-                  }}
-                  //@ts-ignore
-                  options={formatSelectOptions(tags)}
-                  placeholder=""
-                  isMulti={true}
-                ></CreatableSelect>
-              )}
-            ></Controller>
-          </div>
-          <div className="flex flex-col">
-            <label className="label-form" htmlFor="due_date">
-              Due date
-            </label>
-            <Controller
-              control={control}
-              name="due_date"
-              render={({ field }) => (
-                <DatePicker
-                  className="w-full rounded-lg p-2 mb-4 mt-1 bg-smoke"
-                  placeholderText=""
-                  showTimeSelect={true}
-                  onChange={(date) => field.onChange(date)}
-                  selected={field.value}
-                  dateFormat="Pp"
-                />
-              )}
-            ></Controller>
-          </div>
-          <div className="flex flex-row space-x-2 w-full mb-4 mt-1">
-            <div className="w-full flex flex-col items-start">
-              <label htmlFor="is_important" className="label-form">
-                <span className="label-form">Important task</span>
-              </label>
-              <Controller
-                control={control}
-                name="is_important"
-                render={({ field }) => (
-                  <SwitchComponent checked={field.value} {...field} />
-                )}
-              ></Controller>
-            </div>
-            <div className="w-full flex flex-col items-start">
-              <label htmlFor="is_urgent" className="label-form">
-                <span className="label-form">Urgent task</span>
-              </label>
-              <Controller
-                control={control}
-                name="is_urgent"
-                render={({ field }) => (
-                  <SwitchComponent checked={field.value} {...field} />
-                )}
-              ></Controller>
-            </div>
-          </div>
-          <div className="mt-8 w-full">
-            <Button type="submit" className="w-full">
-              {task ? "Update" : "Create"}
-            </Button>
-          </div>
-        </form>
+        <TaskForm task={task} onTaskUpdated={onTaskUpdated} />
       </div>
     </Default>
   );
