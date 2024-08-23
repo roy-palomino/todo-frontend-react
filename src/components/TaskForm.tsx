@@ -199,7 +199,7 @@ const TaskForm: FC<Props> = ({ task, onTaskUpdated }) => {
           Name
         </label>
         <input
-          className="w-full rounded-lg p-2 mb-4 mt-1 bg-smoke"
+          className="w-full rounded-lg p-2 mb-4 mt-1"
           type="text"
           id="name"
           {...register("name", { required: true })}
@@ -211,7 +211,7 @@ const TaskForm: FC<Props> = ({ task, onTaskUpdated }) => {
           Description
         </label>
         <textarea
-          className="w-full rounded-lg p-2 mb-4 mt-1 bg-smoke"
+          className="w-full rounded-lg p-2 mb-4 mt-1"
           id="description"
           {...register("description", { required: false })}
         ></textarea>
@@ -238,7 +238,6 @@ const TaskForm: FC<Props> = ({ task, onTaskUpdated }) => {
                     padding: "0.3rem 0.5rem",
                     marginTop: "0.25rem",
                     marginBottom: "1rem",
-                    backgroundColor: "#D9E1E2",
                   }),
                 }}
                 options={formatSelectOptions(categories)}
@@ -271,7 +270,6 @@ const TaskForm: FC<Props> = ({ task, onTaskUpdated }) => {
                   width: "100%",
                   marginTop: "0.25rem",
                   marginBottom: "1rem",
-                  backgroundColor: "#D9E1E2",
                 }),
               }}
               //@ts-ignore
@@ -291,7 +289,7 @@ const TaskForm: FC<Props> = ({ task, onTaskUpdated }) => {
           name="due_date"
           render={({ field }) => (
             <DatePicker
-              className="w-full rounded-lg p-2 mb-4 mt-1 bg-smoke"
+              className="w-full rounded-lg p-2 mb-4 mt-1"
               placeholderText=""
               showTimeSelect={true}
               onChange={(date) => field.onChange(date)}
