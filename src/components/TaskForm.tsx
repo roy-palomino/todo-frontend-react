@@ -154,11 +154,6 @@ const TaskForm: FC<Props> = ({ task, onTaskUpdated }) => {
     }
   }
 
-  const useFetchTags = async () => {
-    const [loading, setLoading] = useState(false);
-    const [tags, setTags] = useState([]);
-  }
-
   const handleUpdateTask: SubmitHandler<Inputs> = async (data) => {
     const updatableTask = { id: task?.id, ...data };
     try {
