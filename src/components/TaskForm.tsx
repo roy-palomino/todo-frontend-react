@@ -44,7 +44,7 @@ type Inputs = {
   tags?: number[] | Option[];
 };
 
-const TaskForm: FC<Props> = ({ task, onTaskUpdated }) => {
+const TaskForm: FC<Props> = ({ task, onTaskUpdated, onTaskCreated }) => {
   const {
     register,
     reset,
@@ -131,7 +131,12 @@ const TaskForm: FC<Props> = ({ task, onTaskUpdated }) => {
     try {
       await createTask(purgeData(data) as CreateTaskPayload);
       toast.success("Task created!");
-      navigate("/");
+      if (onTaskCreated) {
+        onTaskCreated();
+        reset();
+      } else {
+        navigate("/");
+      }
     } catch (e: any) {
       throw new Error(e);
     }
