@@ -31,6 +31,7 @@ interface UpdatableTask extends Task {
 interface Props {
   task?: Task;
   onTaskUpdated?: () => Promise<void>;
+  onTaskCreated?: () => void;
 }
 
 type Inputs = {
