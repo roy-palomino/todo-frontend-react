@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import { useLocation } from "wouter";
 import { PlusIcon } from "@heroicons/react/20/solid";
 
@@ -12,6 +14,7 @@ import TaskForm from "../components/TaskForm";
 const Home = () => {
   const settings = useAuth((store) => store.settings);
   const toggleHideTasks = useAuth((store) => store.toggleHideCompleted);
+  const [taskListKey, setTaskListKey] = useState(0);
 
   const [_, navigate] = useLocation();
 
@@ -33,7 +36,10 @@ const Home = () => {
               {settings?.hide_completed_tasks ? "Show" : "Hide"} completed tasks
             </button>
           </div>
-          <TaskList hideCompleted={!!settings?.hide_completed_tasks} />
+          <TaskList
+            key={taskListKey}
+            hideCompleted={!!settings?.hide_completed_tasks}
+          />
           <Button
             onClick={() => navigate("/new-task")}
             rounded={true}
@@ -43,8 +49,10 @@ const Home = () => {
           </Button>
         </div>
         <div className="hidden lg:block mt-4">
-          <div className="text-white font-semibold text-xl mb-8">Add a new task</div>
-          <TaskForm />
+          <div className="text-white font-semibold text-xl mb-8">
+            Add a new task
+          </div>
+          <TaskForm onTaskCreated={() => setTaskListKey((prev) => prev + 1)} />
         </div>
       </div>
     </Default>
